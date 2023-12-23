@@ -53,7 +53,7 @@ void writeToFile(char* path, char* text){
 };
 
 
-char* printFiles(char* path, int level){
+char* directoryAnalysis(char* path, int level){
 
 	char *result;
 
@@ -129,7 +129,7 @@ int main(int argc, char *argv[]){
 		return 1;
 	};
 	
-	char* result = printFiles(argv[1], 0);	
+	char* result = directoryAnalysis(argv[1], 0);	
 	
 	printf("%s", result);
 	writeToFile(argv[2], result);
