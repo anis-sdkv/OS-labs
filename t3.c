@@ -25,7 +25,7 @@ bool println(FILE *f){
 
 int main(int argc, char *argv[]){
 	if (argc != 3){
-		printf("Using: <file name> <N number>\n");
+		printf("Usage: <file name> <N number>\n");
 		return 1;
 	};
 	
