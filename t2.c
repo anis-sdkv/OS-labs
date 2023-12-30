@@ -78,28 +78,25 @@ int main(int argc, char *argv[]) {
 
 	while ((d = readdir(src_dir)) != NULL){
 		if (d->d_type != DT_DIR){
-		
 			if (runningProcesses >= max_proc) {
-			    wait(NULL);
-			    runningProcesses--;
+				wait(NULL);
+				runningProcesses--;
 			}
 			
 			int pid = fork();
 			if (pid == -1) {
-			    perror("Fork_error!");
-			    exit(EXIT_FAILURE);
+				perror("Fork_error!");
+				exit(EXIT_FAILURE);
 			} else if (pid == 0) { 
-			    printf("PID: %d, Start copying file: %s\n", getpid(), d->d_name);
-			    
-			    int bytes_copyed = copyFile(concat(argv[1], concat("/", d->d_name)), concat(argv[2], concat("/", d->d_name)));
-			    
-			    printf("PID: %d, Copying is completed, %d bytes have been copied\n", getpid(), bytes_copyed);
-			   
-			    exit(EXIT_SUCCESS);
-			}
+				printf("PID: %d, Start copying file: %s; Processes count: %d\n", getpid(), d->d_name, runningProcesses);
 
-			runningProcesses++;
-			
+				int bytes_copyed = copyFile(concat(argv[1], concat("/", d->d_name)), concat(argv[2], concat("/", d->d_name)));
+
+				printf("PID: %d, Copying is completed, %d bytes have been copied\n", getpid(), bytes_copyed);
+
+				exit(EXIT_SUCCESS);
+			}
+			runningProcesses++;	
 		}
 	}
 	
